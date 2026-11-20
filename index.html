@@ -410,6 +410,34 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;box-shadow:ins
 @keyframes quoteLight{0%,65%{transform:translateX(-110%)}85%,100%{transform:translateX(110%)}}
 @media(prefers-reduced-motion:reduce){.section.enhanced.waiting{opacity:1;transform:none}body::before,.hero::before{animation:none}}
 </style>
+<style id="editorial-2026">
+:root{--bg:#101011;--text:#f0ede7;--muted:#b2aaa5;--line:#ffffff20}
+body{background:#101011;color:var(--text);background-image:radial-gradient(ellipse at 90% 0%,#302728,transparent 55%)}
+body::before{background:radial-gradient(ellipse at 20% 25%,#9a768021,transparent 35%),radial-gradient(ellipse at 80% 70%,#b49a7920,transparent 40%)}
+main{width:min(1060px,calc(100% - 48px))}
+.hero{align-items:flex-start;text-align:left;min-height:94svh;padding:80px 5% 100px;justify-content:center;border-bottom:1px solid #ffffff20;margin-bottom:56px}
+.hero::before{left:75%;background:radial-gradient(circle,#ad827522,transparent 65%)}
+.hero h1{font-size:clamp(100px,22vw,240px);line-height:.95;letter-spacing:-.085em;background-image:linear-gradient(110deg,#aa9385,#fff4e5,#c7a9a0,#aa9385)}
+.hero .avatar-wrap{width:100px;height:100px;margin:0 0 42px 10px}
+.hero .eyebrow{color:#c9aaa0;font-size:10px;letter-spacing:.23em}
+.hero .subtitle{max-width:520px;color:#c3b9b2;margin-top:32px;font-size:17px}
+.hero .scroll-hint{color:#c4b6aa;margin-top:36px}
+.section{border-radius:28px;border:1px solid #ffffff16;background:linear-gradient(145deg,#222020d9,#171718e0);padding:clamp(26px,6vw,68px);margin:0 0 22px;box-shadow:0 18px 60px #0002}
+.section-number{display:inline-block;color:#c7a99a;border-bottom:1px solid #b7988050;padding-bottom:12px;margin-bottom:24px;letter-spacing:.16em}
+h2,.final-title{font-family:Georgia,serif;color:#eee4d8;font-size:clamp(29px,5vw,48px);max-width:850px;line-height:1.14;margin-bottom:30px}
+.section p{max-width:720px;font-size:16px;line-height:1.9;color:#cfc9c2;margin-bottom:19px}
+strong,.signature{color:#e6c6b2}
+.quote{border:0;border-radius:16px;background:#b8a18d0b;color:#e2c5b1;padding:30px;font-size:clamp(22px,4vw,34px)}
+.section::before{background:radial-gradient(ellipse at top right,#c6a58d15,transparent 60%)}
+.section.enhanced:not(.waiting)::after{background:linear-gradient(90deg,transparent,#ebc3a088,transparent)}
+.final-section{background:radial-gradient(ellipse at top,#9e726626,transparent 80%),#1a1818}
+.readbar{background:#dfbca3;box-shadow:0 0 12px #dfbca3}
+.readnav{background:#242020ed;color:#e9d5c7}
+.archive-button{background:#e5d1bd;color:#24201d;border:0;font-weight:600}
+.archive-button:hover{background:#f4e1ce;color:#24201d}
+@media(min-width:850px){.section{display:grid;grid-template-columns:155px minmax(0,1fr);column-gap:30px}.section>*{grid-column:2}.section .section-number{grid-column:1;grid-row:1 / span 2;align-self:start;line-height:1.8}.section h2,.section .final-title{grid-row:1}.section .quote{max-width:720px}}
+@media(max-width:600px){main{width:calc(100% - 24px)}.hero{padding:45px 12px 65px;min-height:88svh;margin-bottom:24px}.hero h1{font-size:clamp(82px,25vw,150px)}.section{border-radius:20px;padding:28px 22px}.section p{font-size:15px}.hero .subtitle{font-size:15px}}
+</style>
 </head>
 
 <body>
