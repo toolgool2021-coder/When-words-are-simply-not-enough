@@ -417,6 +417,25 @@ h2,.final-title{font-family:Inter,"Segoe UI",sans-serif;font-size:clamp(23px,5vw
 @media(max-width:520px){main{width:calc(100% - 24px)}.hero{min-height:86svh}.section{border-radius:18px;padding:24px 20px}.section p{font-size:15px}.hero .subtitle{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.section.enhanced.waiting{opacity:1;transform:none}}
 </style>
+<style id="story-mode">
+body.story{overflow:hidden;background:radial-gradient(ellipse at 50% 0%,hsl(var(--hue,230) 38% 23%),transparent 65%),#080a10}
+.story main{height:100dvh;width:min(760px,100%);padding:0;display:flex;flex-direction:column}
+.story main>.separator,.story .readnav,.story .readbar,.story footer,.story .scroll-hint{display:none}
+.story main>[hidden]{display:none!important}
+.story main>.hero,.story main>.section,.story main>.archive{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;margin:0;padding:clamp(22px,5vw,44px);border:0;border-radius:0;background:transparent;box-shadow:none;animation:storyEnter .55s cubic-bezier(.2,.8,.2,1) both;opacity:1;transform:none;touch-action:pan-y}
+.story main>.hero{justify-content:center;align-items:center}
+.story .section::after{display:none}
+.story .section p{font-size:16px;line-height:1.85}
+.story .section-number{margin-top:12px}
+.story .story-controls{flex:none;padding:12px 18px max(14px,env(safe-area-inset-bottom));background:#101522dd;border-top:1px solid #ffffff15;display:grid;grid-template-columns:44px 1fr 44px;gap:12px;align-items:center;z-index:5}
+.story-controls button{height:44px;border:1px solid #ffffff22;background:#ffffff0a;color:#f0f2ff;border-radius:14px;font-size:22px;cursor:pointer}
+.story-controls button:disabled{opacity:.25;cursor:default}
+.story-controls select{width:100%;background:#171e30;color:#edf0ff;border:1px solid #ffffff18;border-radius:10px;padding:10px;font-size:12px}
+.story-meter{height:3px;background:#ffffff12;flex:none}
+.story-meter i{display:block;height:100%;background:linear-gradient(90deg,#809cff,#d3b5ff);transition:width .4s}
+@keyframes storyEnter{from{opacity:0;transform:translateX(var(--shift,20px));filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@media(prefers-reduced-motion:reduce){.story main>*{animation:none!important}}
+</style>
 </head>
 
 <body>
@@ -1291,6 +1310,9 @@ h2,.final-title{font-family:Inter,"Segoe UI",sans-serif;font-size:clamp(23px,5vw
 </script>
 <script>
 (()=>{const bar=document.createElement('div');bar.className='readbar';bar.setAttribute('aria-hidden','true');document.body.append(bar);const nav=document.createElement('div');nav.className='readnav';nav.innerHTML='<span aria-hidden="true">0%</span><button type="button" aria-label="В начало страницы">↑</button>';document.body.append(nav);nav.querySelector('button').onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});const update=()=>{const p=Math.min(1,Math.max(0,scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)));bar.style.transform='scaleX('+p+')';nav.querySelector('span').textContent=Math.round(p*100)+'%';};addEventListener('scroll',update,{passive:true});addEventListener('resize',update,{passive:true});update();if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('waiting');observer.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.section').forEach(e=>{e.classList.add('enhanced','waiting');observer.observe(e)})}})();
+</script>
+<script>
+(()=>{const main=document.querySelector('main');const pages=[...main.querySelectorAll(':scope > .hero,:scope > .section,:scope > .archive')];if(!pages.length)return;document.body.classList.add('story');const meter=document.createElement('div');meter.className='story-meter';meter.innerHTML='<i></i>';main.prepend(meter);const nav=document.createElement('nav');nav.className='story-controls';nav.setAttribute('aria-label','Навигация по главам');nav.innerHTML='<button type="button" aria-label="Предыдущая глава">←</button><select aria-label="Выбрать главу"></select><button type="button" aria-label="Следующая глава">→</button>';main.append(nav);const [prev,next]=nav.querySelectorAll('button'),select=nav.querySelector('select');pages.forEach((p,i)=>{const o=document.createElement('option');o.value=i;o.textContent=i===0?'Начало':i===pages.length-1?'Архив':p.querySelector('.section-number').textContent.trim();select.append(o)});let current=0;function show(i){i=Math.max(0,Math.min(pages.length-1,i));document.body.style.setProperty('--shift',i<current?'-24px':'24px');current=i;pages.forEach((p,j)=>{p.hidden=j!==i;p.classList.remove('waiting','enhanced')});pages[i].scrollTop=0;select.value=i;prev.disabled=i===0;next.disabled=i===pages.length-1;meter.firstChild.style.width=((i+1)/pages.length*100)+'%';document.body.style.setProperty('--hue',String(220+i*5));}prev.onclick=()=>show(current-1);next.onclick=()=>show(current+1);select.onchange=()=>show(Number(select.value));let x=0,y=0;main.addEventListener('touchstart',e=>{x=e.changedTouches[0].clientX;y=e.changedTouches[0].clientY},{passive:true});main.addEventListener('touchend',e=>{if(e.target.closest('nav'))return;const dx=e.changedTouches[0].clientX-x,dy=e.changedTouches[0].clientY-y;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)show(current+(dx<0?1:-1))},{passive:true});document.addEventListener('keydown',e=>{if(e.target.closest('select,button,a,input,textarea'))return;if(e.key==='ArrowRight')show(current+1);if(e.key==='ArrowLeft')show(current-1)});show(0)})();
 </script>
 </body>
 </html>
